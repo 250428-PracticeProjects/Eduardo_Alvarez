@@ -1,6 +1,6 @@
 export interface IProductProps{
     productID?:number,
-    name:string,
+    productName:string,
     description:string,
     price:number,
     stock:number

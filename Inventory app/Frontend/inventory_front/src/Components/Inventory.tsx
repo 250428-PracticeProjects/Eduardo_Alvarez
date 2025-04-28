@@ -16,8 +16,6 @@ function Inventory() {
     axios.get<IProductProps[]>("http://localhost:8080/products/")
     .then((res) => {
       setProducts(res.data)
-      console.log(products)
-      console.log('XD')
     })
     .catch((fail) =>{
       console.log(fail)
@@ -28,7 +26,7 @@ function Inventory() {
     <>
     <div>
         <h1>Inventory</h1>
-        <button onClick={() => navigate("/register")}>New product</button>
+        <button onClick={() => navigate("/register")}>Add product</button>
         <table>
           <thead>
         <tr>
