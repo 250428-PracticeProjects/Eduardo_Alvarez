@@ -6,6 +6,8 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -19,5 +21,9 @@ public class ProductService {
     public Product createProduct(Product productCreationRequest){
 
         return productDAO.save(productCreationRequest);
+    }
+
+    public List<Product> GetAllProducts(){
+        return productDAO.findAll();
     }
 }
