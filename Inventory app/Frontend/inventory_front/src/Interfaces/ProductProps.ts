@@ -3,5 +3,6 @@ export interface IProductProps{
     productName:string,
     description:string,
     price:number,
-    stock:number
+    stock:number,
+    onDelete?: ()=> void
 }

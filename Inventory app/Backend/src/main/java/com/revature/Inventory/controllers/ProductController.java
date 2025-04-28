@@ -31,4 +31,10 @@ public class ProductController {
     public List<Product> getAllProducts(){
         return productService.GetAllProducts();
     }
+
+    @DeleteMapping("/{productId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void DeleteProduct(@PathVariable int productId){
+        productService.DeleteProduct(productId);
+    }
 }

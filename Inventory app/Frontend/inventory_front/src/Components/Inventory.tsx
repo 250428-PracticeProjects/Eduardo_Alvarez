@@ -12,14 +12,18 @@ function Inventory() {
   const [products, setProducts] = useState<IProductProps[]>([])
 
   //Methods
-  useEffect(()=>{
-    axios.get<IProductProps[]>("http://localhost:8080/products/")
-    .then((res) => {
-      setProducts(res.data)
-    })
-    .catch((fail) =>{
+
+  async function LoadProducts(){
+    try{
+    const response = await axios.get<IProductProps[]>("http://localhost:8080/products/")
+    setProducts(response.data)
+    }catch(fail){
       console.log(fail)
-    })
+    }
+  }
+
+  useEffect(()=>{
+    LoadProducts()
   },[])
 
   return (
@@ -41,7 +45,8 @@ function Inventory() {
         {
           products.map((product) => {
             return <ProductSnippet{...product}
-            key={product.productID}></ProductSnippet>
+            key={product.productID}
+            onDelete={LoadProducts}></ProductSnippet>
           })
           }
           </tbody>
