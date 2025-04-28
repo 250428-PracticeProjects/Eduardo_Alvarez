@@ -18,6 +18,6 @@ public class ProductService {
 
     public Product createProduct(Product productCreationRequest){
 
-        return productDAO.
+        return productDAO.save(productCreationRequest);
     }
 }
