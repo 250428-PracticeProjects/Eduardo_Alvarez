@@ -6,18 +6,30 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
     private final ProductDAO productDAO;
 
     @Autowired
-    public ProductService(ProductDAO productDAO){
+    public ProductService(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
 
-    public Product createProduct(Product productCreationRequest){
+    public Product createProduct(Product productCreationRequest) {
 
         return productDAO.save(productCreationRequest);
+    }
+
+    public List<Product> GetAllProducts() {
+        return productDAO.findAll();
+    }
+
+    public void DeleteProduct(int id) {
+        if (productDAO.existsById(id)) {
+            productDAO.deleteById(id);
+        }
     }
 }
