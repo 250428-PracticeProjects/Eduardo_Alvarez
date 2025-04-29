@@ -1,6 +1,7 @@
-import { TableCell, TableRow } from '@mui/material'
+import { Button, TableCell, TableRow } from '@mui/material'
 import React from 'react'
 import { IProductProps } from '../../Interfaces/IProductProps'
+import {  Delete, Edit,  } from '@mui/icons-material'
 
 function InventoryRow(props: IProductProps) {
   return (
@@ -10,6 +11,10 @@ function InventoryRow(props: IProductProps) {
         <TableCell>{props.description}</TableCell>
         <TableCell>{props.price}</TableCell>
         <TableCell>{props.stock}</TableCell>
+        <TableCell>
+            <Button startIcon={<Delete/>}/>
+            <Button startIcon={<Edit/>}/>
+        </TableCell>
     </TableRow>
   )
 }

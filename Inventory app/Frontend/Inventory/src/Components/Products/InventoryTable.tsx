@@ -35,10 +35,10 @@ const [products, setProducts] = React.useState<IProduct[]>([])
         <TableHead>
           <TableRow>
             <TableCell>ID</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Stock</TableCell>
+            <TableCell align="left">Name</TableCell>
+            <TableCell align="left">Description</TableCell>
+            <TableCell align="left">Price</TableCell>
+            <TableCell align="left">Stock</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
