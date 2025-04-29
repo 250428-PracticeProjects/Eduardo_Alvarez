@@ -18,6 +18,7 @@ export default function InventoryTable() {
 const [products, setProducts] = React.useState<IProduct[]>([])
   const [open, setOpen] = useState(false);
   const [dialogContent, setDialogContent] = useState("")
+  const [idForDeleting, setIdForDeleting] = useState(0)
 
   const handleClose = () => {
     setOpen(false);
@@ -26,6 +27,7 @@ const [products, setProducts] = React.useState<IProduct[]>([])
   function OpenDialog(productId: number, productName: string){
     setDialogContent(`Are you sure want to delete ${productName}?`)
     setOpen(true)
+    setIdForDeleting(productId)
   }
     
     async function LoadProducts() {
@@ -40,6 +42,17 @@ const [products, setProducts] = React.useState<IProduct[]>([])
     React.useEffect(()=>{
         LoadProducts()
     },[])
+
+    async function DeleteProduct() {
+        try{
+            await axios.delete(`http://localhost:8080/products/${idForDeleting}`)
+            LoadProducts()
+            setOpen(false)
+        }catch(fail){
+            console.log(fail)
+            setDialogContent("Someting went wrong :(")
+        }
+    }
 
 
   return (
@@ -80,7 +93,7 @@ const [products, setProducts] = React.useState<IProduct[]>([])
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color="error" onClick={handleClose}>Delete</Button>
+          <Button color="error" onClick={DeleteProduct}>Delete</Button>
           <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>

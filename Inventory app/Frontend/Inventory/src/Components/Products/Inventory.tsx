@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Add } from "@mui/icons-material"
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material"
+import { Button} from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import InventoryTable from "./InventoryTable"
 
