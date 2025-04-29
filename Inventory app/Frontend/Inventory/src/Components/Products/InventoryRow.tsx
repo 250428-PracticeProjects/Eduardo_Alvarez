@@ -4,6 +4,14 @@ import { IProductProps } from '../../Interfaces/IProductProps'
 import {  Delete, Edit,  } from '@mui/icons-material'
 
 function InventoryRow(props: IProductProps) {
+
+    function OpenDialogForDelete(){
+        if(props.onDelete)
+        {
+            props.onDelete(Number(props.id), props.name)
+        }
+    }
+
   return (
     <TableRow>
         <TableCell>{props.id}</TableCell>
@@ -12,7 +20,7 @@ function InventoryRow(props: IProductProps) {
         <TableCell>{props.price}</TableCell>
         <TableCell>{props.stock}</TableCell>
         <TableCell>
-            <Button startIcon={<Delete/>}/>
+            <Button onClick={OpenDialogForDelete} startIcon={<Delete/>}/>
             <Button startIcon={<Edit/>}/>
         </TableCell>
     </TableRow>

@@ -4,4 +4,5 @@ export interface IProductProps {
     description?: string;
     price: number;
     stock: number;
+    onDelete?: (productId:number,productName:string)=>void
   }

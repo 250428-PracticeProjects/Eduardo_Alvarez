@@ -9,11 +9,24 @@ import Paper from '@mui/material/Paper';
 import axios from 'axios';
 import { IProduct } from '../../Interfaces/IProduct';
 import InventoryRow from './InventoryRow';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { useState } from 'react';
 
 
 
 export default function InventoryTable() {
 const [products, setProducts] = React.useState<IProduct[]>([])
+  const [open, setOpen] = useState(false);
+  const [dialogContent, setDialogContent] = useState("")
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  function OpenDialog(productId: number, productName: string){
+    setDialogContent(`Are you sure want to delete ${productName}?`)
+    setOpen(true)
+  }
     
     async function LoadProducts() {
         try{
@@ -30,6 +43,7 @@ const [products, setProducts] = React.useState<IProduct[]>([])
 
 
   return (
+    <>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
@@ -45,11 +59,31 @@ const [products, setProducts] = React.useState<IProduct[]>([])
             {
                 products.map((product) => {
                     return <InventoryRow{...product}
-                    key={product.id}></InventoryRow>
+                    key={product.id}
+                    onDelete={OpenDialog}></InventoryRow>
                 })
             }
         </TableBody>
       </Table>
     </TableContainer>
+    <Dialog
+        open={open}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Message"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {dialogContent}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="error" onClick={handleClose}>Delete</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
