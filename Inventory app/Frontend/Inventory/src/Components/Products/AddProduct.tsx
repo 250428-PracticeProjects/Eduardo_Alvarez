@@ -1,5 +1,5 @@
 import { ArrowBack} from "@mui/icons-material"
-import { Box, Button, TextField } from "@mui/material"
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material"
 import axios from "axios"
 import { ChangeEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -14,6 +14,9 @@ function AddProduct() {
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [stock, setStock] = useState('')
+    const [open, setOpen] = useState(false);
+    const [dialogContent, setDialogContent] = useState("")
+
 
     const changeName = (e: ChangeEvent<HTMLInputElement>) =>{
         setName(e.target.value)
@@ -44,6 +47,10 @@ function AddProduct() {
         setStock(String(n))
     }
 
+    const handleClose = () => {
+        setOpen(false);
+      };
+
     async function RegisterProduct() {
 
         const newProduct : IProduct={
@@ -57,7 +64,11 @@ function AddProduct() {
             const response = await axios.post("http://localhost:8080/products/", newProduct)
             console.log(response)
             ClearValues()
+            setOpen(true)
+            setDialogContent("The product was registered succesfuly.")
         }catch(fail){
+            setDialogContent("Something went wrong :(")
+            setOpen(true)
             console.log(fail)
         }
     }
@@ -93,7 +104,23 @@ function AddProduct() {
             <Button onClick={RegisterProduct} variant="contained">Register</Button>
         </div>
     </Box>
-    
+    <Dialog
+        open={open}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Message"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {dialogContent}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Ok</Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }
